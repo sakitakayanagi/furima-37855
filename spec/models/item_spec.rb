@@ -17,51 +17,52 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end     
-      it "商品名がないと出品情報は登録できない" do
+      it "item_nameが空では登録できない" do
         @item.item_name = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_name can't be blank")
+        expect(@item.errors.full_messages).to include("Item name can't be blank")
       end
-      it "商品の説明がないと出品情報は登録できない" do
+      it "item_explainが空では登録できない" do
         @item.item_explain = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_explain can't be blank")
+        expect(@item.errors.full_messages).to include("Item explain can't be blank")
       end
-      it "カテゴリーが選択されてないと出品情報は登録できない" do
-        @item.item_category_id = ''
+      it "item_category_idが未選択では登録できない" do
+        @item.item_category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_category_id can't be blank")
+        expect(@item.errors.full_messages).to include("Item category can't be blank")
       end
-      it "商品の状態が選択されてないと出品情報は登録できない" do
-        @item.item_sales_status_id = ''
+      it "item_sales_status_idが未選択では登録できない" do
+        @item.item_sales_status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_sales_status_id can't be blank")
+        expect(@item.errors.full_messages).to include("Item sales status can't be blank")
       end
-      it "配送料の負担が選択されてないと出品情報は登録できない" do
-        @item.item_shipping_fee_status_id = ''
+      it "item_shipping_fee_status_idが未選択では登録できない" do
+        @item.item_shipping_fee_status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_shipping_fee_status_id can't be blank")
+        expect(@item.errors.full_messages).to include("Item shipping fee status can't be blank")
       end
-      it "発送元の地域が選択されてないと出品情報は登録できない" do
-        @item.item_prefecture_id = ''
+      it "item_prefecture_idが未選択では登録できない" do
+        @item.item_prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_prefecture_id can't be blank")
+        expect(@item.errors.full_messages).to include("Item prefecture can't be blank")
       end
-      it "発送までの日数が選択されてないと出品情報は登録できない" do
-        @item.item_scheduled_delivery_id = ''
+      it "item_scheduled_delivery_idが未選択では登録できない" do
+        @item.item_scheduled_delivery_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("item_scheduled_delivery_id can't be blank")
+        expect(@item.errors.full_messages).to include("Item scheduled delivery can't be blank")
       end
-      it "値段が300より小さかった時に登録できないこと" do
-        item = build(:item, price: 299)
-        item.valid?
-        expect(item.errors[:price]).to include("Out of setting range")
+      it "item_priceが300より小さいと登録できない" do
+        @item.item_price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item price Out of setting range")
       end
-      it "値段が9999999より大きかった時に登録できないこと" do
-        item = build(:item, price: 10000000)
-        item.valid?
-        expect(item.errors[:price]).to include("Out of setting range")
+      it "item_priceが9999999より大きいと登録できない" do
+        @item.item_price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item price Out of setting range")
       end
+      
     end
   end
 end
