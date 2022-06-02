@@ -11,4 +11,5 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :item_price, presence: true, format: { with: /\A[0-9]+\z/, message: "Half-width number" }, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
   belongs_to :user
+  has_one :order
 end
